@@ -19,7 +19,7 @@ keys = [False, False, False, False] #this list holds whether each key has been p
 while gameOver == False:
     
     #Input section-----------------------------------------
-    clock.tick(60) #FPS
+    clock.tick(60) #FPS (frames per second, aka game speed)
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT: #quit game if x is pressed in top corner
             gameOver = True
