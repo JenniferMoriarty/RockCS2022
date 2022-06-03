@@ -3,16 +3,18 @@ import math
 pygame.init()  #initializes pygame
 
 class Enemy:#-----------------------------------------------------------------------------
-    def __init__(self, xpos, ypos):
+    def __init__(self, xpos, ypos): #parameterized constructor
         self.xpos = xpos
         self.ypos = ypos
         self.OriginalX = xpos
         self.GoingRight = 1
 
-    def draw(self):
+    def draw(self): #call this in the render section of game loop
         pygame.draw.circle(screen, (0,250,0), (self.xpos, self.ypos), 15)
-        
-    def move(self):
+    
+    #movement function: moves enemy back and forth over platform
+    #call this in the physics section
+    def move(self): 
         if self.GoingRight == 1:
             self.xpos += 2
         if self.GoingRight == -1:
@@ -20,6 +22,8 @@ class Enemy:#-------------------------------------------------------------------
         if abs(self.OriginalX - self.xpos) > 40:
             self.GoingRight = self.GoingRight * -1
     
+    #circular collision function- uses distance formula
+    #call this in the physics section of game loop
     def collide(self, PlayerX, PlayerY):
         if (math.sqrt((self.xpos - (PlayerX+10))**2 + (self.ypos - (PlayerY+10))**2))<15:
             return True
@@ -163,9 +167,9 @@ while gameOver == False:
     xpos += vx 
     ypos += vy
     
-    e1.move()
-    if e1.collide(xpos, ypos) == True:
-        gameOver = True
+    e1.move() #move enemy
+    if e1.collide(xpos, ypos) == True: #check for collision b/t enemy and player
+        gameOver = True #game over if you hit (you could also reduce health and only stop game when health is below 0)
         win = False
     
     #render section----------------------------------------
@@ -181,7 +185,7 @@ while gameOver == False:
     
     pygame.draw.rect(screen, RED, (xpos, ypos, player_width, player_height)) #draw player
     
-    e1.draw()
+    e1.draw() #draw enemy
     
     pygame.display.flip()#draws everything to the screen
     
